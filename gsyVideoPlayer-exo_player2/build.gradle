@@ -30,12 +30,12 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    def androidDependencies =rootProject.ext.androidDependencies
     def viewDependencies = rootProject.ext.viewDependencies
+    implementation androidDependencies.annotation
     api viewDependencies.exo_player2
     api viewDependencies.exo_player2_rtmp
-    //api project(':gsyVideoPlayer-base')
-    api "com.shuyu:gsyVideoPlayer-base:$gsyVideoVersion"
-
+    api project(':gsyVideoPlayer-base')
 }
 
 apply from: './bintray.gradle'

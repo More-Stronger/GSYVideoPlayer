@@ -16,6 +16,7 @@ ext {
 
     supportLibraryVersion = '1.1.0-alpha05'
     otherVersion = '1.0.0'
+    annotationVersion = '1.1.0'
 
 
     butterKnifeVersion = '10.1.0'
@@ -47,6 +48,7 @@ ext {
             appcompat_v7: "androidx.appcompat:appcompat:${supportLibraryVersion}",
             support_v4  : "androidx.legacy:legacy-support-v4:${otherVersion}",
             design      : "com.google.android.material:material:${otherVersion}",
+            annotation      : "androidx.annotation:annotation:${annotationVersion}",
     ]
 
     viewDependencies = [
