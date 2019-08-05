@@ -215,12 +215,12 @@ public final class MeasureHelper {
     }
 
     private void setFullWidthHeightFit(Context context, int width, int height) {
-        Log.e("GSY----GSY", "getFullWidthLP in" + width + "  " + height);
+        Log.i("GSY----GSY", "getFullWidthLP in" + width + "  " + height);
         if (width != 0 && height != 0) {
             int screenWidth = CommonUtil.getScreenWidth(context);
             height = (int) (((double) screenWidth * (double) height) / (double) width);
             width = screenWidth;
-            Log.e("GSY----GSY", "getFullWidthLP out" + width + "  " + height);
+            Log.i("GSY----GSY", "getFullWidthLP out" + width + "  " + height);
             mMeasuredWidth = width;
             mMeasuredHeight = height;
         }
