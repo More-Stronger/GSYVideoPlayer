@@ -17,8 +17,9 @@
 
 package com.shuyu.gsyvideoplayer.utils;
 
+import android.content.Context;
+import android.util.Log;
 import android.view.View;
-
 
 import java.lang.ref.WeakReference;
 
@@ -107,6 +108,7 @@ public final class MeasureHelper {
                             displayAspectRatio = 1.0f / displayAspectRatio;
                         break;
                     case GSYVideoType.SCREEN_TYPE_DEFAULT:
+                    case GSYVideoType.SCREEN_WIDTH_MATCH_HEIGHT_FIT:
                     case GSYVideoType.SCREEN_TYPE_FULL:
                         //case GSYVideoType.AR_ASPECT_WRAP_CONTENT:
                     default:
@@ -119,6 +121,7 @@ public final class MeasureHelper {
 
                 switch (mCurrentAspectRatio) {
                     case GSYVideoType.SCREEN_TYPE_DEFAULT:
+                    case GSYVideoType.SCREEN_WIDTH_MATCH_HEIGHT_FIT:
                     case GSYVideoType.SCREEN_TYPE_16_9:
                     case GSYVideoType.SCREEN_TYPE_4_3:
                         if (shouldBeWider) {
@@ -203,10 +206,25 @@ public final class MeasureHelper {
             // no size yet, just adopt the given spec sizes
         }
 
-        mMeasuredWidth = width;
-        mMeasuredHeight = height;
+        if (mCurrentAspectRatio == GSYVideoType.SCREEN_WIDTH_MATCH_HEIGHT_FIT && getView() != null) {
+            setFullWidthHeightFit(getView().getContext(), width, height);
+        } else {
+            mMeasuredWidth = width;
+            mMeasuredHeight = height;
+        }
     }
 
+    private void setFullWidthHeightFit(Context context, int width, int height) {
+        Log.e("GSY----GSY", "getFullWidthLP in" + width + "  " + height);
+        if (width != 0 && height != 0) {
+            int screenWidth = CommonUtil.getScreenWidth(context);
+            height = (int) (((double) screenWidth * (double) height) / (double) width);
+            width = screenWidth;
+            Log.e("GSY----GSY", "getFullWidthLP out" + width + "  " + height);
+            mMeasuredWidth = width;
+            mMeasuredHeight = height;
+        }
+    }
 
     public void prepareMeasure(int widthMeasureSpec, int heightMeasureSpec, int rotate) {
         if (mParamsListener != null) {

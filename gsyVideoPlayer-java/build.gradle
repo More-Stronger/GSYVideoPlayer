@@ -37,9 +37,10 @@ dependencies {
     implementation androidDependencies.appcompat_v7
 
     def viewDependencies = rootProject.ext.viewDependencies
-    //api viewDependencies.ijkplayer_java
-    //api viewDependencies.ijkplayer_exo
     api viewDependencies.transitionseverywhere
+
+    api viewDependencies.ijkplayer_java
+    api project(':gsyVideoPlayer-ex_so')
     api project(':gsyVideoPlayer-proxy_cache')
     api project(':gsyVideoPlayer-base')
 }
