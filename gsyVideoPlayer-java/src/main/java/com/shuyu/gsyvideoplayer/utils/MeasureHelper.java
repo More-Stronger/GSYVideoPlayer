@@ -17,7 +17,6 @@
 
 package com.shuyu.gsyvideoplayer.utils;
 
-import android.content.Context;
 import android.util.Log;
 import android.view.View;
 
@@ -207,20 +206,19 @@ public final class MeasureHelper {
         }
 
         if (mCurrentAspectRatio == GSYVideoType.SCREEN_WIDTH_MATCH_HEIGHT_FIT && getView() != null) {
-            setFullWidthHeightFit(getView().getContext(), width, height);
+            setFullWidthHeightFit(View.MeasureSpec.getSize(widthMeasureSpec), width, height);
         } else {
             mMeasuredWidth = width;
             mMeasuredHeight = height;
         }
     }
 
-    private void setFullWidthHeightFit(Context context, int width, int height) {
-        Log.i("GSY----GSY", "getFullWidthLP in" + width + "  " + height);
+    private void setFullWidthHeightFit(int viewWidth, int width, int height) {
+        Log.e("GSY----GSY", "getFullWidthLP in " + viewWidth + "   " + width + "  " + height);
         if (width != 0 && height != 0) {
-            int screenWidth = CommonUtil.getScreenWidth(context);
-            height = (int) (((double) screenWidth * (double) height) / (double) width);
-            width = screenWidth;
-            Log.i("GSY----GSY", "getFullWidthLP out" + width + "  " + height);
+            height = (int) (((double) viewWidth * (double) height) / (double) width);
+            width = viewWidth;
+            Log.e("GSY----GSY", "getFullWidthLP out " + viewWidth + "   " + width + "  " + height);
             mMeasuredWidth = width;
             mMeasuredHeight = height;
         }

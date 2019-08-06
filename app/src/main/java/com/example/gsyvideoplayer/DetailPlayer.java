@@ -60,6 +60,7 @@ public class DetailPlayer extends AppCompatActivity {
 
         String url =  getUrl();
 
+
         //detailPlayer.setUp(url, false, null, "测试视频");
         //detailPlayer.setLooping(true);
         //detailPlayer.setShowPauseCover(false);

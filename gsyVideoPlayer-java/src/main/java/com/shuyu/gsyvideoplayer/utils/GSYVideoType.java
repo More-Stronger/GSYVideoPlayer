@@ -22,7 +22,7 @@ public class GSYVideoType {
     //全屏拉伸显示，使用这个属性时，surface_container建议使用FrameLayout
     public final static int SCREEN_MATCH_FULL = -4;
 
-    // 随时保持宽占满,高跟随宽等比缩放.场景1:缩放后高溢出,上下裁剪. 场景2:缩放后高没溢出,效果不变.
+    // 随时保持宽占满控件,高跟随宽等比缩放.场景1:缩放后高溢出,上下裁剪. 场景2:缩放后高没溢出,效果不变.
     public final static int SCREEN_WIDTH_MATCH_HEIGHT_FIT = 5;
 
     /**

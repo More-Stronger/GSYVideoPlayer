@@ -47,7 +47,6 @@ public class PlayEmptyControlActivity extends AppCompatActivity {
         String url = "https://res.exexm.com/cw_145225549855002";
 
         videoPlayer.setUp(url, true, "");
-
         //过渡动画
         initTransition();
     }
