@@ -5,9 +5,6 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.os.Handler;
 import android.os.Looper;
-import androidx.annotation.AttrRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
@@ -21,6 +18,11 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import androidx.annotation.AttrRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.shuyu.gsyvideoplayer.R;
 import com.shuyu.gsyvideoplayer.listener.GSYVideoProgressListener;
 import com.shuyu.gsyvideoplayer.listener.LockClickListener;
@@ -31,7 +33,6 @@ import java.io.File;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
-
 
 import static com.shuyu.gsyvideoplayer.utils.CommonUtil.hideNavKey;
 
@@ -273,7 +274,7 @@ public abstract class GSYVideoControlView extends GSYVideoView implements View.O
             });
         }
 
-        if (getActivityContext()!=null) {
+        if (getActivityContext() != null) {
             mSeekEndOffset = CommonUtil.dip2px(getActivityContext(), 50);
         }
     }
@@ -373,7 +374,7 @@ public abstract class GSYVideoControlView extends GSYVideoView implements View.O
     protected void setSmallVideoTextureView(View.OnTouchListener onTouchListener) {
         super.setSmallVideoTextureView(onTouchListener);
         //小窗口播放停止了也可以移动
-        if(mThumbImageViewLayout != null) {
+        if (mThumbImageViewLayout != null) {
             mThumbImageViewLayout.setOnTouchListener(onTouchListener);
         }
     }
@@ -671,9 +672,9 @@ public abstract class GSYVideoControlView extends GSYVideoView implements View.O
     protected void touchSurfaceMove(float deltaX, float deltaY, float y) {
         int curWidth = 0;
         int curHeight = 0;
-        if (getActivityContext()!=null) {
-             curWidth = CommonUtil.getCurrentScreenLand((Activity) getActivityContext()) ? mScreenHeight : mScreenWidth;
-             curHeight = CommonUtil.getCurrentScreenLand((Activity) getActivityContext()) ? mScreenWidth : mScreenHeight;
+        if (getActivityContext() != null) {
+            curWidth = CommonUtil.getCurrentScreenLand((Activity) getActivityContext()) ? mScreenHeight : mScreenWidth;
+            curHeight = CommonUtil.getCurrentScreenLand((Activity) getActivityContext()) ? mScreenWidth : mScreenHeight;
         }
         if (mChangePosition) {
             int totalTimeDuration = getDuration();
@@ -702,7 +703,7 @@ public abstract class GSYVideoControlView extends GSYVideoView implements View.O
 
     protected void touchSurfaceMoveFullLogic(float absDeltaX, float absDeltaY) {
         int curWidth = 0;
-        if (getActivityContext()!=null) {
+        if (getActivityContext() != null) {
             curWidth = CommonUtil.getCurrentScreenLand((Activity) getActivityContext()) ? mScreenHeight : mScreenWidth;
         }
         if (absDeltaX > mThreshold || absDeltaY > mThreshold) {
@@ -896,7 +897,11 @@ public abstract class GSYVideoControlView extends GSYVideoView implements View.O
         cancelProgressTimer();
         updateProcessTimer = new Timer();
         mProgressTimerTask = new ProgressTimerTask();
-        updateProcessTimer.schedule(mProgressTimerTask, 0, 300);
+        if (null != mGSYVideoProgressListener) {
+            updateProcessTimer.schedule(mProgressTimerTask, 0, mGSYVideoProgressListener.getUpdateTime());
+        } else {
+            updateProcessTimer.schedule(mProgressTimerTask, 0, 300);
+        }
     }
 
     protected void cancelProgressTimer() {
@@ -928,7 +933,7 @@ public abstract class GSYVideoControlView extends GSYVideoView implements View.O
         if (mProgressBar == null || mTotalTimeTextView == null || mCurrentTimeTextView == null) {
             return;
         }
-        if(mHadSeekTouch) {
+        if (mHadSeekTouch) {
             return;
         }
         if (!mTouchingProgressBar) {
@@ -950,7 +955,7 @@ public abstract class GSYVideoControlView extends GSYVideoView implements View.O
     }
 
     protected void setSecondaryProgress(int secProgress) {
-        if (mProgressBar != null ) {
+        if (mProgressBar != null) {
             if (secProgress != 0 && !getGSYVideoManager().isCacheFile()) {
                 mProgressBar.setSecondaryProgress(secProgress);
             }
